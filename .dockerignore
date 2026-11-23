@@ -1,0 +1,14 @@
+node_modules
+dist
+.changeguard
+.git
+.gitignore
+*.log
+.env
+.env.*
+tests
+fixtures
+scripts
+docs
+*.md
+.vscode

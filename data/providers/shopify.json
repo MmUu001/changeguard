@@ -1,0 +1,52 @@
+{
+  "id": "shopify",
+  "name": "Shopify",
+  "website": "https://shopify.dev",
+  "packages": {
+    "npm": [
+      "@shopify/shopify-api"
+    ],
+    "pypi": [
+      "shopifyapi"
+    ],
+    "go": [
+      "github.com/Shopify/go-shopify",
+      "github.com/shopspring/go-shopify"
+    ]
+  },
+  "hosts": [
+    "myshopify.com"
+  ],
+  "factories": {
+    "javascript": [
+      "shopifyApi"
+    ],
+    "python": [
+      "Session"
+    ],
+    "go": [
+      "NewClient",
+      "NewAppClient"
+    ]
+  },
+  "sources": {
+    "changelog": {
+      "url": "https://shopify.dev/changelog",
+      "kind": "html"
+    },
+    "githubReleases": [
+      {
+        "ecosystem": "npm",
+        "language": "javascript",
+        "owner": "Shopify",
+        "repo": "shopify-api-js"
+      },
+      {
+        "ecosystem": "pypi",
+        "language": "python",
+        "owner": "Shopify",
+        "repo": "shopify_python_api"
+      }
+    ]
+  }
+}

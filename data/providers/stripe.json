@@ -1,0 +1,57 @@
+{
+  "id": "stripe",
+  "name": "Stripe",
+  "website": "https://stripe.com",
+  "packages": {
+    "npm": [
+      "stripe"
+    ],
+    "pypi": [
+      "stripe"
+    ],
+    "go": [
+      "github.com/stripe/stripe-go"
+    ]
+  },
+  "hosts": [
+    "api.stripe.com",
+    "files.stripe.com"
+  ],
+  "factories": {
+    "javascript": [
+      "Stripe"
+    ],
+    "python": [
+      "StripeClient"
+    ],
+    "go": [
+      "NewClient"
+    ]
+  },
+  "sources": {
+    "changelog": {
+      "url": "https://docs.stripe.com/changelog",
+      "kind": "html"
+    },
+    "githubReleases": [
+      {
+        "ecosystem": "npm",
+        "language": "javascript",
+        "owner": "stripe",
+        "repo": "stripe-node"
+      },
+      {
+        "ecosystem": "pypi",
+        "language": "python",
+        "owner": "stripe",
+        "repo": "stripe-python"
+      },
+      {
+        "ecosystem": "go",
+        "language": "go",
+        "owner": "stripe",
+        "repo": "stripe-go"
+      }
+    ]
+  }
+}

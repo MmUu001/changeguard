@@ -1,0 +1,56 @@
+{
+  "id": "supabase",
+  "name": "Supabase",
+  "website": "https://supabase.com",
+  "packages": {
+    "npm": [
+      "@supabase/supabase-js"
+    ],
+    "pypi": [
+      "supabase"
+    ],
+    "go": [
+      "github.com/supabase-community/supabase-go"
+    ]
+  },
+  "hosts": [
+    "supabase.co"
+  ],
+  "factories": {
+    "javascript": [
+      "createClient"
+    ],
+    "python": [
+      "create_client"
+    ],
+    "go": [
+      "NewClient"
+    ]
+  },
+  "sources": {
+    "changelog": {
+      "url": "https://supabase.com/changelog",
+      "kind": "html"
+    },
+    "githubReleases": [
+      {
+        "ecosystem": "npm",
+        "language": "javascript",
+        "owner": "supabase",
+        "repo": "supabase-js"
+      },
+      {
+        "ecosystem": "pypi",
+        "language": "python",
+        "owner": "supabase",
+        "repo": "supabase-py"
+      },
+      {
+        "ecosystem": "go",
+        "language": "go",
+        "owner": "supabase-community",
+        "repo": "supabase-go"
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "id": "openai-edits-sunset-2024-01",
+    "providerId": "openai",
+    "kind": "breaking",
+    "title": "Edits API (POST /v1/edits) removed",
+    "summary": "The legacy Edits endpoint and its SDK helpers were shut down on 2024-01-04. The text-davinci-edit-001 / code-davinci-edit-001 models are no longer served.",
+    "body": "OpenAI retired the Edits API. Migrate edit-style workflows to Chat Completions with gpt-4o / gpt-4o-mini using editing prompts, or use the Responses API.",
+    "source": "release-note",
+    "sourceUrl": "https://platform.openai.com/docs/changelog",
+    "date": "2024-01-04",
+    "operations": [
+      {
+        "method": "POST",
+        "pathTemplate": "/v1/edits",
+        "scope": "operation",
+        "sdkPaths": {
+          "javascript": ["edits.create"],
+          "python": ["edits.create"]
+        }
+      },
+      {
+        "scope": "request-field",
+        "target": "instruction",
+        "detail": "removed with endpoint",
+        "sdkPaths": {
+          "javascript": ["edits.create"],
+          "python": ["edits.create"]
+        }
+      },
+      {
+        "scope": "enum",
+        "target": "model",
+        "detail": "removed:text-davinci-edit-001,code-davinci-edit-001",
+        "sdkPaths": {
+          "javascript": ["edits.create"],
+          "python": ["edits.create"]
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [
+      { "ecosystem": "npm", "package": "openai", "removedIn": "5.0.0" },
+      { "ecosystem": "pypi", "package": "openai", "removedIn": "2.0.0" }
+    ],
+    "migration": "Replace client.edits.create({ model: 'text-davinci-edit-001', input, instruction }) with client.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: `${instruction}\\n\\n${input}` }] }). Update raw HTTP callers from POST https://api.openai.com/v1/edits to POST https://api.openai.com/v1/chat/completions.",
+    "parserSignals": ["changelog:endpoint-sunset", "manual:curated-seed"],
+    "confidence": "high"
+  },
+  {
+    "id": "openai-legacy-completions-models-2024-01",
+    "providerId": "openai",
+    "kind": "breaking",
+    "title": "Legacy Completions models text-davinci-003 retired",
+    "summary": "The text-davinci-003 / text-davinci-002 models served via POST /v1/completions were retired on 2024-01-04.",
+    "body": "Legacy completion models are no longer available. Use a current model through Chat Completions instead.",
+    "source": "release-note",
+    "sourceUrl": "https://platform.openai.com/docs/changelog",
+    "date": "2024-01-04",
+    "operations": [
+      {
+        "method": "POST",
+        "pathTemplate": "/v1/completions",
+        "scope": "operation",
+        "sdkPaths": {
+          "javascript": ["completions.create"],
+          "python": ["completions.create"]
+        }
+      },
+      {
+        "scope": "enum",
+        "target": "model",
+        "detail": "removed:text-davinci-003,text-davinci-002,text-davinci-001,GPTTextDavinci003,GPTTextDavinci002",
+        "sdkPaths": {
+          "javascript": ["completions.create"],
+          "python": ["completions.create"],
+          "go": ["CreateChatCompletion", "CreateCompletion"]
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [],
+    "migration": "Move from completions.create({ model: 'text-davinci-003', prompt }) to chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] }). In go-openai use ChatCompletionRequest with GPT4oMini / GPT35Turbo.",
+    "parserSignals": ["changelog:model-retirement", "manual:curated-seed"],
+    "confidence": "high"
+  }
+]

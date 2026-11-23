@@ -1,0 +1,94 @@
+{
+  "name": "changeguard",
+  "version": "0.7.0",
+  "description": "ChangeGuard - sentinel for breaking changes in third-party APIs/SDKs",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "bin": {
+    "changeguard": "dist/cli.js",
+    "changeguard-mcp": "dist/mcp/standalone.js"
+  },
+  "files": [
+    "dist/cli.js",
+    "dist/cli.js.map",
+    "dist/scan.js",
+    "dist/scan.js.map",
+    "dist/types.js",
+    "dist/types.js.map",
+    "dist/config.js",
+    "dist/config.js.map",
+    "dist/analyze/**",
+    "dist/codemod/**",
+    "dist/deps/**",
+    "dist/github/**",
+    "dist/impact/**",
+    "dist/ingest/**",
+    "dist/llm/**",
+    "dist/notify/**",
+    "dist/providers/**",
+    "dist/report/**",
+    "dist/source/**",
+    "dist/util/**",
+    "data/**",
+    "fixtures/**",
+    "LICENSE",
+    "LICENSE-PROPRIETARY",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "dist/mcp/**"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "demo": "tsx src/cli.ts demo",
+    "scan": "tsx src/cli.ts scan",
+    "serve": "tsx src/cli.ts serve",
+    "dev": "node scripts/dev.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "feed:keygen": "tsx scripts/feed-keygen.ts",
+    "feed:keyring": "tsx scripts/feed-keyring.ts",
+    "feed:sign": "tsx scripts/feed-sign.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:fast": "npm run typecheck && npm run lint && npm run format:check",
+    "check": "npm run check:fast && npm test",
+    "test:coverage": "vitest run --coverage",
+    "feed:refresh": "tsx scripts/refresh-seeds.ts",
+    "publish:check": "node scripts/publish.mjs",
+    "stripe:check": "node scripts/stripe-check.mjs",
+    "publish:tarball": "node scripts/publish.mjs --tarball",
+    "mcp:dev": "tsx src/cli.ts mcp"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "tree-sitter-wasms": "^0.1.8",
+    "web-tree-sitter": "^0.25.9",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.9.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MmUu001/changeguard.git"
+  },
+  "homepage": "https://github.com/MmUu001/changeguard#readme",
+  "bugs": {
+    "url": "https://github.com/MmUu001/changeguard/issues"
+  }
+}

@@ -1,0 +1,63 @@
+[
+  {
+    "id": "twilio-messages-callback-rename-2024",
+    "providerId": "twilio",
+    "kind": "breaking",
+    "title": "Messages callback parameter renamed to statusCallbackUrl",
+    "summary": "In the current major SDK lines the Messaging webhook parameter was renamed for consistency: statusCallback -> statusCallbackUrl (JS) and status_callback -> status_callback_url (Python). The old parameter names are no longer accepted.",
+    "body": "Curated seed change demonstrating a deterministic rename codemod: callers passing the old parameter name must update the identifier; the value semantics are unchanged.",
+    "source": "release-note",
+    "sourceUrl": "https://www.twilio.com/en-us/changelog",
+    "date": "2024-06-15",
+    "operations": [
+      {
+        "scope": "sdk-method",
+        "target": "messages.create",
+        "sdkPaths": {
+          "javascript": ["messages.create"],
+          "python": ["messages.create"],
+          "go": ["Api.CreateMessage"]
+        }
+      }
+    ],
+    "renames": [
+      { "kind": "parameter", "from": "statusCallback", "to": "statusCallbackUrl", "language": "javascript" },
+      { "kind": "parameter", "from": "status_callback", "to": "status_callback_url", "language": "python" }
+    ],
+    "versions": [
+      { "ecosystem": "npm", "package": "twilio", "removedIn": "5.0.0" },
+      { "ecosystem": "pypi", "package": "twilio", "removedIn": "9.0.0" },
+      { "ecosystem": "go", "package": "github.com/twilio/twilio-go", "removedIn": "v2.0.0" }
+    ],
+    "migration": "Rename the request key: messages.create({ statusCallback }) -> messages.create({ statusCallbackUrl }). Python: status_callback -> status_callback_url. The webhook URL value and Twilio signature validation are unchanged.",
+    "parserSignals": ["release-note:rename", "manual:curated-seed"],
+    "confidence": "high"
+  },
+  {
+    "id": "twilio-message-scheduling-validation-2024",
+    "providerId": "twilio",
+    "kind": "behavior",
+    "title": "Messages.create now rejects scheduled messages without ScheduleType",
+    "summary": "Behavior change: when a Message is created with SendAt set, the API now requires ScheduleType=fixed and returns 400 otherwise. Previously messages were silently sent immediately.",
+    "body": "Curated seed change demonstrating a behavior finding (medium severity, deterministic rule R1).",
+    "source": "changelog",
+    "sourceUrl": "https://www.twilio.com/en-us/changelog",
+    "date": "2024-03-01",
+    "operations": [
+      {
+        "scope": "sdk-method",
+        "target": "messages.create",
+        "sdkPaths": {
+          "javascript": ["messages.create"],
+          "python": ["messages.create"],
+          "go": ["Api.CreateMessage"]
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [],
+    "migration": "If you schedule messages with SendAt / send_at, explicitly pass ScheduleType: 'fixed' (schedule_type='fixed' in Python, ScheduleType in CreateMessageParams for Go).",
+    "parserSignals": ["changelog:behavior-change", "manual:curated-seed"],
+    "confidence": "medium"
+  }
+]

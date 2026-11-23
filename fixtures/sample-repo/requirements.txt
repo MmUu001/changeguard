@@ -1,0 +1,7 @@
+# Pinned runtime deps of the sample service
+stripe==5.5.0
+openai==1.3.7
+shopifyapi==12.5.0
+twilio==8.10.0
+supabase==2.3.0
+requests==2.31.0

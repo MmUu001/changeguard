@@ -1,0 +1,94 @@
+# ChangeGuard — Proprietary License
+
+Copyright (c) 2026 the ChangeGuard authors. All rights reserved.
+
+This repository is **dual-licensed**. `LICENSE` contains the full, unmodified
+Apache License 2.0. This file defines its scope and governs everything that
+Apache-2.0 does not cover.
+
+## 1. Apache-2.0 scope
+
+The following paths are licensed under the Apache License, Version 2.0:
+
+| Path | Contents |
+| --- | --- |
+| `src/cli.ts` | CLI entrypoint (`demo`, `scan`, `pr-preview`, `pr-open`) and the optional loader for the proprietary admin extension; it contains no import of proprietary modules (see §3) |
+| `src/scan.ts`, `src/types.ts`, `src/config.ts` | Scan orchestration, shared types, configuration plumbing |
+| `src/analyze/**` | Tree-sitter parsers and JS/TS/Python/Go analyzers |
+| `src/impact/**` | Deterministic impact / rules engine |
+| `src/codemod/**` | Codemod patch generation |
+| `src/deps/**` | Manifest and dependency collection |
+| `src/source/**` | Repository source abstraction (local / virtual) |
+| `src/providers/**` | Provider registry and host rules |
+| `src/ingest/**` | Change-ingestion engine (GitHub Releases, changelog HTML, OpenAPI diff, local store) |
+| `src/report/**` | Markdown / HTML reports and PR body drafts |
+| `src/llm/**` | Optional explanation layer (template-first) |
+| `src/notify/**` | Outbound notification channels (GitHub Issue, Slack, email) |
+| `src/github/**` | GitHub API client (token and GitHub App installation auth) |
+| `src/util/**` | HTTP, logging, task-queue and version helpers |
+| `data/**` | Bundled offline seed records and OpenAPI snapshots required by the CLI |
+| `fixtures/**` | Sample repository used by tests and the demo |
+| `tests/engine.test.ts`, `tests/analyzers.test.ts`, `tests/codemod.test.ts`, `tests/scan-e2e.test.ts`, `tests/openapi-diff.test.ts`, `tests/manifests.test.ts`, `tests/note-parser.test.ts`, `tests/license-boundary.test.ts`, `tests/feed.test.ts` | Tests for Apache-2.0 modules |
+| `scripts/**` | Development and diagnostic scripts |
+| `docs/**`, `manuals/**` | Public architecture notes and public product manuals |
+| `.github/**` | CI configuration |
+| Root config files (`package.json`, `package-lock.json`, `tsconfig.json`, `vitest.config.ts`, `.env.example`, `.gitignore`, `.npmrc`, `.dockerignore`) | Build, test and tooling configuration |
+
+## 2. Proprietary scope
+
+The following paths are **not** licensed under Apache-2.0. All rights are
+reserved; no license, express or implied, is granted except by a separate
+written agreement with the copyright holder.
+
+| Path | Contents |
+| --- | --- |
+| `src/server/**` | Hosted control plane: HTTP routing, console/dashboard, authentication and sessions, GitHub and Stripe webhooks, scheduler, usage reporting |
+| `src/store/**` | Multi-tenant persistence: tenants, hashed API keys, audit log, billing state, SQLite access |
+| `src/cli-admin.ts` | CLI admin extension: `serve`, `tenant`, `key`, `plan`, `audit`, `bind-installation`; the only CLI module allowed to import `src/server/**` and `src/store/**` |
+| `Dockerfile`, `docker-compose.yml`, `docker-compose.multi.yml` | Deployment packaging for the hosted service |
+| `tests/phase3.test.ts`, `tests/phase4.test.ts`, `tests/phase5.test.ts`, `tests/security.test.ts`, `tests/manual-search.test.ts`, `tests/cli-admin.test.ts` | Tests that exercise proprietary modules (`src/server`, `src/store`, `src/cli-admin`) |
+
+Everything not listed in §1 is proprietary, including any file added later
+unless it is explicitly placed under §1 in this file.
+
+The **hosted change feed**, its production curation pipeline, customer data,
+and any operational infrastructure outside this repository are proprietary
+and are not covered by Apache-2.0.
+
+## 3. Mixed paths — how the boundary is applied
+
+Some files legitimately serve both products. The rule is: **the license follows
+the module's purpose, and an import never relicenses the imported module.**
+
+- **`src/cli.ts` / `src/cli-admin.ts`** — the CLI was split so the Apache-2.0
+  entrypoint contains no proprietary command and no import of
+  `src/server/**` or `src/store/**`, not even a dynamic one. `src/cli.ts` calls
+  `import('./cli-admin.js')`; the proprietary extension registers `serve`,
+  `tenant`, `key`, `plan`, `audit` and `bind-installation`. When the extension
+  is absent (Apache-2.0-only distribution) the entrypoint registers stubs with
+  the same command names that explain what is missing and exit non-zero. The
+  scan commands keep working unchanged.
+- **`src/scanner` dependencies consumed by the server** — `scan.ts`, `notify/**`,
+  `github/**`, `report/**` stay Apache-2.0; the hosted server is allowed to
+  consume them under Apache-2.0. The reverse is not true: Apache-2.0 code must
+  not depend on proprietary modules to run.
+- **`data/**`** — this is the offline snapshot the CLI needs to scan without
+  network access, therefore Apache-2.0. The hosted feed service that publishes
+  fresh records is proprietary and lives outside this repository.
+- **`tests/**`** — a test follows the license of the module it exercises. Tests
+  that import `src/server` or `src/store` are proprietary (see §2).
+- **Licensing is not a technical access control.** Nothing in `src/server` or
+  `src/store` becomes open source merely because it is distributed in the
+  repository or referenced by Apache-2.0 code.
+
+## 4. Redistribution of the Apache-2.0 portion
+
+You may use, reproduce, modify and distribute the Apache-2.0 paths, including
+as part of a product, provided you comply with the Apache License 2.0
+(notably: retain copyright and license notices, state significant changes,
+and include a copy of the license). You may **not** copy, modify, distribute,
+host or commercially exploit the proprietary paths without written permission.
+
+The npm tarball is constrained by the `files` allowlist in `package.json`: it
+ships the Apache-2.0 portion only, so `dist/server/**`, `dist/store/**`,
+`dist/cli-admin.*` and the Docker files are never published.

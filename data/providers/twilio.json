@@ -1,0 +1,57 @@
+{
+  "id": "twilio",
+  "name": "Twilio",
+  "website": "https://www.twilio.com",
+  "packages": {
+    "npm": [
+      "twilio"
+    ],
+    "pypi": [
+      "twilio"
+    ],
+    "go": [
+      "github.com/twilio/twilio-go"
+    ]
+  },
+  "hosts": [
+    "twilio.com"
+  ],
+  "factories": {
+    "javascript": [
+      "twilio",
+      "Twilio"
+    ],
+    "python": [
+      "Client"
+    ],
+    "go": [
+      "NewRestClient"
+    ]
+  },
+  "sources": {
+    "changelog": {
+      "url": "https://www.twilio.com/en-us/changelog",
+      "kind": "html"
+    },
+    "githubReleases": [
+      {
+        "ecosystem": "npm",
+        "language": "javascript",
+        "owner": "twilio",
+        "repo": "twilio-node"
+      },
+      {
+        "ecosystem": "pypi",
+        "language": "python",
+        "owner": "twilio",
+        "repo": "twilio-python"
+      },
+      {
+        "ecosystem": "go",
+        "language": "go",
+        "owner": "twilio",
+        "repo": "twilio-go"
+      }
+    ]
+  }
+}

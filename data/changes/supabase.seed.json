@@ -1,0 +1,56 @@
+[
+  {
+    "id": "supabase-auth-signin-renamed-2024",
+    "providerId": "supabase",
+    "kind": "deprecation",
+    "title": "auth.signIn deprecated: use signInWithPassword / signInWithOtp",
+    "summary": "The generic supabase-js auth.signIn() and supabase-py auth.sign_in() helpers were split into explicit methods: signInWithPassword and signInWithOtp. The old methods are deprecated and will be removed.",
+    "body": "Callers using email/password must rename the call to signInWithPassword. The deterministic codemod renames the method; review OTP callers separately.",
+    "source": "changelog",
+    "sourceUrl": "https://supabase.com/changelog",
+    "date": "2024-02-01",
+    "operations": [
+      {
+        "scope": "sdk-method",
+        "target": "auth.signIn",
+        "sdkPaths": {
+          "javascript": ["auth.signIn"],
+          "python": ["auth.sign_in"]
+        }
+      }
+    ],
+    "renames": [
+      { "kind": "method", "from": "auth.signIn", "to": "auth.signInWithPassword", "language": "javascript" },
+      { "kind": "method", "from": "auth.sign_in", "to": "auth.sign_in_with_password", "language": "python" }
+    ],
+    "versions": [],
+    "migration": "JS: supabase.auth.signIn({ email, password }) -> supabase.auth.signInWithPassword({ email, password }). Python: supabase.auth.sign_in(email=..., password=...) -> supabase.auth.sign_in_with_password(...). Magic-link callers should use signInWithOtp / sign_in_with_otp instead.",
+    "parserSignals": ["changelog:deprecation", "manual:curated-seed"],
+    "confidence": "high"
+  },
+  {
+    "id": "supabase-go-select-validation-2024",
+    "providerId": "supabase",
+    "kind": "behavior",
+    "title": "Go query builder rejects unknown Select columns",
+    "summary": "supabase-go now validates column names in Select at request build time: queries that previously fell back to '*' now return an error when a column does not exist.",
+    "body": "Curated seed change demonstrating a Go behavior finding on chained query-builder calls.",
+    "source": "changelog",
+    "sourceUrl": "https://supabase.com/changelog",
+    "date": "2024-05-20",
+    "operations": [
+      {
+        "scope": "sdk-method",
+        "target": "From.Select.Execute",
+        "sdkPaths": {
+          "go": ["From.Select.Execute"]
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [],
+    "migration": "Verify the columns passed to client.From(table).Select(cols, ...) exist in the database schema; pass '*' explicitly to select all columns.",
+    "parserSignals": ["changelog:behavior-change", "manual:curated-seed"],
+    "confidence": "medium"
+  }
+]

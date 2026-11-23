@@ -1,0 +1,60 @@
+{
+  "id": "openai",
+  "name": "OpenAI",
+  "website": "https://platform.openai.com",
+  "packages": {
+    "npm": [
+      "openai"
+    ],
+    "pypi": [
+      "openai"
+    ],
+    "go": [
+      "github.com/openai/openai-go",
+      "github.com/sashabaranov/go-openai"
+    ]
+  },
+  "hosts": [
+    "api.openai.com"
+  ],
+  "factories": {
+    "javascript": [
+      "OpenAI",
+      "AzureOpenAI"
+    ],
+    "python": [
+      "OpenAI",
+      "AsyncOpenAI",
+      "AzureOpenAI"
+    ],
+    "go": [
+      "NewClient"
+    ]
+  },
+  "sources": {
+    "changelog": {
+      "url": "https://platform.openai.com/docs/changelog",
+      "kind": "html"
+    },
+    "githubReleases": [
+      {
+        "ecosystem": "npm",
+        "language": "javascript",
+        "owner": "openai",
+        "repo": "openai-node"
+      },
+      {
+        "ecosystem": "pypi",
+        "language": "python",
+        "owner": "openai",
+        "repo": "openai-python"
+      },
+      {
+        "ecosystem": "go",
+        "language": "go",
+        "owner": "openai",
+        "repo": "openai-go"
+      }
+    ]
+  }
+}

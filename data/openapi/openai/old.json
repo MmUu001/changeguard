@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "OpenAI API (snapshot 2023-11)", "version": "2023-11" },
+  "paths": {
+    "/v1/edits": {
+      "post": {
+        "operationId": "createEdit",
+        "deprecated": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["model", "instruction"],
+                "properties": {
+                  "model": { "type": "string" },
+                  "input": { "type": "string" },
+                  "instruction": { "type": "string" },
+                  "temperature": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": { "type": "string" },
+                    "created": { "type": "integer" },
+                    "choices": { "type": "array", "items": {} }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/completions": {
+      "post": {
+        "operationId": "createCompletion",
+        "deprecated": false,
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "text-davinci-003",
+                "text-davinci-002",
+                "gpt-3.5-turbo-instruct"
+              ]
+            }
+          }
+        ],
+        "responses": { "200": { "description": "ok" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "sample-saas",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Sample polyglot repository for ChangeGuard demos",
+  "dependencies": {
+    "@shopify/shopify-api": "^9.5.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.6.8",
+    "openai": "^4.20.1",
+    "stripe": "^14.14.0",
+    "twilio": "^4.20.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

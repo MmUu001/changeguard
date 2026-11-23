@@ -1,0 +1,9 @@
+[
+  {
+    "name": "OpenAI API 2023-11 -> 2024-01 (Edits sunset, Completions deprecation)",
+    "old": "old.json",
+    "new": "new.json",
+    "date": "2024-01-04",
+    "sourceUrl": "https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml"
+  }
+]

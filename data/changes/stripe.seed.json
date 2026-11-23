@@ -1,0 +1,60 @@
+[
+  {
+    "id": "stripe-charges-sources-sunset-2024",
+    "providerId": "stripe",
+    "kind": "breaking",
+    "title": "Legacy Charges / Sources payment flow removed",
+    "summary": "Creating charges directly with card/source tokens (Charges API + Sources) is no longer supported. The PaymentIntents API is the only supported integration path.",
+    "body": "Charges.create with source, and the SetSource parameter helpers in the Go SDK, were removed in the current major SDK lines. Use PaymentIntent confirm flows instead.",
+    "source": "changelog",
+    "sourceUrl": "https://docs.stripe.com/changelog",
+    "date": "2024-04-11",
+    "operations": [
+      {
+        "method": "POST",
+        "pathTemplate": "/v1/charges",
+        "scope": "operation",
+        "sdkPaths": {
+          "javascript": ["charges.create", "charges.retrieve", "charges.list", "charges.update", "charges.capture"],
+          "python": ["Charge.create", "Charge.retrieve", "Charge.list", "Charge.modify"],
+          "go": ["charge.New", "charge.Get", "charge.List"]
+        }
+      },
+      {
+        "scope": "sdk-method",
+        "target": "SetSource",
+        "detail": "ChargeParams.SetSource removed; use PaymentIntentParams.SetPaymentMethod",
+        "sdkPaths": {
+          "go": ["SetSource"]
+        }
+      },
+      {
+        "scope": "sdk-method",
+        "target": "ChargeParams",
+        "detail": "ChargeParams source field removed",
+        "sdkPaths": {
+          "go": ["ChargeParams"]
+        }
+      },
+      {
+        "scope": "parameter",
+        "target": "source",
+        "detail": "replaced by payment_method / confirm PaymentIntent flow",
+        "sdkPaths": {
+          "javascript": ["charges.create", "charges.update"],
+          "python": ["Charge.create", "Charge.modify"],
+          "go": ["SetSource"]
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [
+      { "ecosystem": "npm", "package": "stripe", "removedIn": "15.0.0" },
+      { "ecosystem": "pypi", "package": "stripe", "removedIn": "6.0.0" },
+      { "ecosystem": "go", "package": "github.com/stripe/stripe-go/v78", "removedIn": "v79.0.0" }
+    ],
+    "migration": "Migrate from Charges to PaymentIntents: 1) create a PaymentIntent server-side, 2) collect card details with Stripe.js elements, 3) confirm the payment. Replace stripe.charges.create({ source: tok }) with paymentIntents.create({ amount, currency, payment_method, confirm: true }). In Go use paymentintent.New with PaymentIntentParams and SetPaymentMethod.",
+    "parserSignals": ["changelog:api-sunset", "manual:curated-seed"],
+    "confidence": "high"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "shopify-admin-rest-sunset-2025-04",
+    "providerId": "shopify",
+    "kind": "breaking",
+    "title": "Admin REST API sunset: migrate to GraphQL Admin API (2025-04)",
+    "summary": "Shopify removed the remaining Admin REST API surface in API version 2025-04. REST resource clients such as rest.Product.all/find/count are removed from the SDKs; the GraphQL Admin API must be used instead.",
+    "body": "As of 2025-04, REST Admin endpoints are no longer available and SDK resource helpers were deleted. Use the GraphQL client and product queries/mutations.",
+    "source": "changelog",
+    "sourceUrl": "https://shopify.dev/changelog",
+    "date": "2025-01-07",
+    "operations": [
+      {
+        "method": "GET",
+        "pathTemplate": "/admin/api/{version}/products.json",
+        "scope": "operation",
+        "sdkPaths": {
+          "javascript": ["rest.Product.all", "rest.Product.find", "rest.Product.count", "rest.Product.save", "rest.Product.delete"],
+          "python": ["Product.find", "Product.all", "Product.count", "Product.save"],
+          "go": ["Product.List", "Product.Find", "Product.Create"]
+        }
+      },
+      {
+        "scope": "sdk-method",
+        "target": "rest resource namespace",
+        "detail": "entire shopify.rest.* REST namespace removed",
+        "sdkPaths": {
+          "javascript": ["rest.*"],
+          "python": []
+        }
+      }
+    ],
+    "renames": [],
+    "versions": [
+      { "ecosystem": "npm", "package": "@shopify/shopify-api", "removedIn": "10.0.0" },
+      { "ecosystem": "pypi", "package": "shopifyapi", "removedIn": "13.0.0" }
+    ],
+    "migration": "Replace shopify.rest.Product.all(session) with a GraphQL Admin query: POST /admin/api/2025-04/graphql.json with { products(first: 50) { edges { node { id title } } } }. In the JS SDK use shopify.clients.Graphql; in Python use the GraphQL endpoint with shopify tokens rather than shopifyapi.Product.",
+    "parserSignals": ["changelog:api-version-sunset", "manual:curated-seed"],
+    "confidence": "high"
+  }
+]

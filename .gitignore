@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.changeguard/
+.keys/
+*.private.pem
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+.vscode/
+.idea/
+
+# Local backup bundles (git bundles contain the repo; never track them)
+backups/
