@@ -15,6 +15,9 @@
 ```bash
 npm install
 npm run demo          # 离线跑通完整流水线（不需要任何配置）
+
+![ChangeGuard impact report](docs/images/report-screenshot.png)
+
 npm run serve         # 启动 HTTP 服务：控制台 http://localhost:8787
 ```
 
