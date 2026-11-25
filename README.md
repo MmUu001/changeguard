@@ -23,13 +23,13 @@ npm run serve         # 启动 HTTP 服务：控制台 http://localhost:8787
 
 启动后浏览器打开 http://localhost:8787 。控制台顶栏四标签：**控制台 · 设置 · 手册 · 套餐**。
 
-### 安装（试用 / 内部分发，tarball）
+### 安装（内部分发，tarball）
 
-npm 官方 registry 暂未发布本包（注册通道不可用），试用版以 tarball 分发：
+npm 包已正式发布（`npm install -g changeguard`）。内部分发也可以用 tarball：
 
 ```bash
 # 1) 拿到 changeguard-<版本>.tgz 后全局安装
-npm install -g ./changeguard-0.6.1.tgz
+npm install -g ./changeguard-0.7.1.tgz
 # 2) 核对版本（应输出与 tgz 一致的版本号）
 changeguard --version
 # 3) 扫描任意本地仓库
