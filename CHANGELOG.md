@@ -39,10 +39,7 @@ Nothing yet.
   100 files/200 call sites in 0.75s, 500/1000 in 0.84s, 2000/4000 in 1.99s —
   marginal cost ≈0.65ms/file. Reproducible via `scripts/gen-synth-repo.ts`
   (mixed TS/Py/Go generator mimicking the fixture call shapes).
-- `docs/maintenance.md`: ten-minute takeover checklist, the eight-step
-  release procedure, an index of every real pitfall hit during development,
-  an architecture map, backlog and handover notes. The project is declared
-  in **maintenance mode** at v0.6.0: bug and security fixes only, new
+- Maintenance-mode declaration at v0.6.0: bug and security fixes only, new
   features require real user demand.
 
 ### Fixed
